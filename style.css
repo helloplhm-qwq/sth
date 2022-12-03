@@ -1,3 +1,7 @@
 * {
+    @font-face: {
+        font-family: 霞骛文楷;
+        src: url(https://jsd.cdn.zzko.cn/gh/lxgw/LxgwWenKai@main/fonts/TTF/LXGWWenKai-Light.ttf);
+    };
     font-family: 霞骛文楷!important
 }
