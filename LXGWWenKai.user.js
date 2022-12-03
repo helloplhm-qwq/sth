@@ -1,10 +1,11 @@
-/*
- @match *
- @name 无
- @description 无
- @author helloplhm-qwq
- @version 0.1
-*/
+// ==UserScript==
+//
+// @match *
+// @name 无
+// @description 无
+// @author helloplhm-qwq
+// @version 0.1
+//
 
 function loadStyle(url) {
   var link = document.createElement('link')
