@@ -17,4 +17,4 @@ function loadStyle(url) {
 }
 
 // 使用方法引入css
-loadStyle('https://jsd.cdn.zzko.cn/gh/helloplhm-qwq/sth@main/style.css')
+loadStyle('https://jsd.cdn.zzko.cn/gh/helloplhm-qwq/sth@main/lxgwwenkai.css')
