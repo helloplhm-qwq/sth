@@ -1,16 +1,21 @@
 /*!
- * @name 彭狸花喵自用源
+ * @name 彭狸花喵自用源~开源版
  * @description 这里似乎什么也没有~
- * @version v1.0.0
+ * @version v1.0.0+beta.2
+ * @collaborators Folltoshe
+ * @author helloplhm-qwq
  */
 
- //用了https://github.com/lyswhut/lx-music-source/的部分东西
+
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
+/******/  "use strict";
 var __webpack_exports__ = {};
 
+const thisversioncode = 10002
+const thisversionname = '1.0.0.beta2'
+
 const { EVENT_NAMES, on, send, request, utils: lxUtils, version } = window.lx
-console.log(window.lx)
+// console.log(window.lx)
 
 const md5 = str => utils.crypto.md5(str)
 
@@ -32,14 +37,21 @@ const kw = ({
     name: '酷我音乐',
     type: 'music',
     actions: ['musicUrl'],
-    qualitys: ['128k','320k'],
+    qualitys: ['128k','320k','flac','flac24bit'],
   },
 
   musicUrl({ songmid }, quality) {
-    console.log(quality)
-    const target_url = `http://antiserver.kuwo.cn/anti.s?format=mp3&rid=${songmid}&response=url&type=convert_url3&br=${quality}mp3`
+    // console.log(quality)
+    const kw_qualitymap = {
+      '128k': 'LQ',
+      '192k': 'PQ',
+      '320k' :'HQ',
+      'flac': 'SQ',
+      'flac24bit': 'ZQ'
+    }
+    const target_url = `https://thewind.xyz/api/next/download?src=KW&quality=${kw_qualitymap[quality]}&songid=${songmid}`
     return new Promise((resolve, reject) => {
-      console.log(songmid, quality)
+      // console.log(songmid, quality)
       request(target_url, {
         method: 'GET',
         headers: {
@@ -47,11 +59,11 @@ const kw = ({
           // Referer: 'http://kuwo.cn/',
         },
       }, (err, resp) => {
-        console.log(resp.body)
+        // console.log(resp.body)
         if (err) return reject(err)
-        if (resp.body.code != 200) return reject(new Error(`请求错误：${resp.body.message}`))
+        if (resp.body.downloadLinkMap[kw_qualitymap[quality]] === '') return reject(new Error(`出错惹…`))
 
-        resolve(resp.body.url)
+        resolve(resp.body.downloadLinkMap[kw_qualitymap[quality]])
       })
     })
   },
@@ -69,11 +81,11 @@ const kg = ({
     let key = md5(hash.toLowerCase()+'kgcloudv2100500')
     let target_url = `http://trackercdn.kugou.com/i/v2/?cmd=26&key=${key}&hash=${hash.toLowerCase()}&pid=1&behavior=play&mid=0&appid=1005&userid=0&version=8876&vipType=0&token=0`
     return new Promise((resolve, reject) => {
-      console.log(target_url, hash, quality, key)
+      // console.log(target_url, hash, quality, key)
       request(target_url, {
         method: 'GET',
       }, (err, resp) => {
-        console.log(resp.body)
+        // console.log(resp.body)
         if (err) return reject(err)
         const data = resp.body
 
@@ -145,7 +157,7 @@ const tx = ({
       },
     }
     return new Promise((resolve, reject) => {
-      console.log(songmid, quality)
+      // console.log(songmid, quality)
       request(`${target_url}?format=json&data=${JSON.stringify(reqData)}`, {
         method: 'GET',
         headers: {
@@ -153,7 +165,7 @@ const tx = ({
           uid: 1234,
         },
       }, (err, resp) => {
-        console.log(resp.body)
+        // console.log(resp.body)
         if (err) return reject(err)
         const data = resp.body
         const { purl } = data.req_0.data.midurlinfo[0]
@@ -226,7 +238,7 @@ const wy = ({
     const data = eapi(eapiUrl, d)
 
     return new Promise((resolve, reject) => {
-      console.log(songmid, quality)
+      // console.log(songmid, quality)
       request(target_url, {
         method: 'POST',
         form: data,
@@ -234,7 +246,7 @@ const wy = ({
           cookie,
         },
       }, (err, resp) => {
-        console.log(resp.body)
+        // console.log(resp.body)
         if (err) return reject(err)
         if (resp.headers.cookie) cookie = resp.headers.cookie
 
@@ -249,10 +261,10 @@ const wy = ({
 
 
 const mg_qualitys = {
-  '128k': 'PQ',
-  '320k': 'HQ',
-  flac: 'SQ',
-  flac24bit: 'ZQ',
+  '128k': '1',
+  '320k': '2',
+  flac: '3',
+  flac24bit: '4',
 }
 
 const mg = ({
@@ -265,20 +277,20 @@ const mg = ({
 
   musicUrl({ songmid }, quality) {
     quality = mg_qualitys[quality]
-    const target_url = `https://app.c.nf.migu.cn/MIGUM2.0/strategy/listen-url/v2.2?netType=01&resourceType=E&songId=${songmid}&toneFlag=${quality}`
+    const target_url = `https://api.dog886.com/v1/getMiGuSong?id=${songmid}&type=${quality}`
     return new Promise((resolve, reject) => {
-      console.log(songmid, quality)
+      // console.log(songmid, quality)
       request(target_url, {
         method: 'GET',
         headers: {
-          channel: '0146951',
-          uid: 1234,
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0',
+          // Referer: 'http://kuwo.cn/',
         },
       }, (err, resp) => {
-        console.log(resp.body)
+        // console.log(resp.body)
         if (err) return reject(err)
         let playUrl = resp.body.data?.url
-        if (!playUrl) return reject(new Error('failed'))
+        if (!playUrl) return reject(new Error('失败惹…'))
 
         if (playUrl.startsWith('//')) playUrl = `https:${playUrl}`
 
@@ -297,11 +309,12 @@ const apis = ({
 });
 
 
+
 on(EVENT_NAMES.request, ({ source, action, info }) => {
   switch (action) {
     case 'musicUrl':
       return apis[source].musicUrl(info.musicInfo, info.type).catch((err) => {
-        console.log(err.message)
+        // console.log(err.message)
         return Promise.reject(err)
       })
   }
@@ -318,5 +331,24 @@ send(EVENT_NAMES.inited, {
   sources,
 })
 
+// console.log('准备检查更新')
+
+request('https://cdn.jsdelivr.net/gh/helloplhm-qwq/sth@main/version_info.json', {
+  method: 'GET',
+  timeout: 5000,
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0',
+  },
+}, (err, resp) => {
+  // console.log('检查更新')
+  // console.log(resp.body)
+  if (err) {
+    throw new Error(err.message)
+  }
+  if (resp.body.latestversioncode > thisversioncode) {
+    send(EVENT_NAMES.updateAlert, {log: `${resp.body.main.update_log_part1}${thisversionname}${resp.body.main.update_log_part2}`,updateUrl: resp.body.main.update_url})
+    // console.log(resp.body.versioncode)
+  }
+})
 })()
 ;
