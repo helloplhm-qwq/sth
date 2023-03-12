@@ -327,7 +327,7 @@ for (const [source, apiInfo] of Object.entries(apis)) {
 
 send(EVENT_NAMES.inited, {
   status: true,
-  openDevTools: false,
+  openDevTools: true,
   sources,
 })
 
