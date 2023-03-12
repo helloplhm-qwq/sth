@@ -1,0 +1,14 @@
+{
+  "main": {
+    "latestversioncode": 10003,
+    "update_log_part1": "你好啊，我是彭狸花喵~感谢你使用这个源~\n现在它需要更新了，当前版本：",
+    "update_log_part2": "，服务器最新版本：1.0.0.beta3\n本次更新更新日志：\n  1.添加更新弹窗\n  2.增加kw源无损+HiRes支持（感谢@Folltoshe提供接口）\n  3.修复mg源部分歌曲获取链接失败的问题\n好了，更新日志就到这里了，感谢使用。",
+    "update_url": "https://cdn.jsdelivr.net/gh/helloplhm-qwq/str@main/lxmusic-plhm-source.js"
+  }，
+  "console": {
+    "latestversioncode": 10003,
+    "update_log_part1": "你好啊，我是彭狸花喵~感谢你使用这个源~\n现在它需要更新了，当前版本：",
+    "update_log_part2": "，服务器最新版本：1.0.0.beta3\n你正在使用的版本为带console版，不建议日常使用，如果你是开发人员，请忽视\n本次更新更新日志：\n  1.添加更新弹窗\n  2.增加kw源无损+HiRes支持（感谢@Folltoshe提供接口）\n  3.修复mg源部分歌曲获取链接失败的问题\n好了，更新日志就到这里了，感谢使用。",
+    "update_url": "https://cdn.jsdelivr.net/gh/helloplhm-qwq/str@main/lxmusic-plhm-source_withconsole.js"
+  }
+}
