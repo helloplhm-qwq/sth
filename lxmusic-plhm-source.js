@@ -1,7 +1,7 @@
 /*!
  * @name 彭狸花喵自用源~开源版
  * @description 这里似乎什么也没有~
- * @version v1.0.0+beta.2
+ * @version v1.0.0+beta.3
  * @collaborators Folltoshe
  * @author helloplhm-qwq
  */
@@ -11,8 +11,8 @@
 /******/  "use strict";
 var __webpack_exports__ = {};
 
-const thisversioncode = 10002
-const thisversionname = '1.0.0.beta2'
+const thisversioncode = 10003
+const thisversionname = '1.0.0.beta3'
 
 const { EVENT_NAMES, on, send, request, utils: lxUtils, version } = window.lx
 // console.log(window.lx)
