@@ -345,7 +345,7 @@ request('https://cdn.jsdelivr.net/gh/helloplhm-qwq/sth@main/version_info.json', 
   if (err) {
     throw new Error(err.message)
   }
-  if (resp.body.latestversioncode > thisversioncode) {
+  if (resp.body.main.latestversioncode > thisversioncode) {
     send(EVENT_NAMES.updateAlert, {log: `${resp.body.main.update_log_part1}${thisversionname}${resp.body.main.update_log_part2}`,updateUrl: resp.body.main.update_url})
     // console.log(resp.body.versioncode)
   }
