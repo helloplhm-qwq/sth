@@ -1,7 +1,7 @@
 /*!
  * @name 月明空梦
  * @description 你好~
- * @version v1.0.0+beta.4
+ * @version v1.0.0+beta.5
  * @author helloplhm-qwq
  */
 
@@ -10,8 +10,8 @@
 /******/  "use strict";
 var __webpack_exports__ = {};
 
-const thisversioncode = 10004
-const thisversionname = '1.0.0.beta4'
+const thisversioncode = 10005
+const thisversionname = '1.0.0.beta5'
 
 const { EVENT_NAMES, on, send, request, utils: lxUtils, version } = window.lx
 // console.log(window.lx)
@@ -400,10 +400,10 @@ const wy = ({
 
 
 const mg_qualitys = {
-  '128k': '1',
-  '320k': '2',
-  flac: '3',
-  flac24bit: '4',
+  '128k': 'PQ',
+  '320k': 'HQ',
+  flac: 'SQ',
+  flac24bit: 'ZQ',
 }
 
 const mg = ({
@@ -416,19 +416,20 @@ const mg = ({
 
   musicUrl({ songmid }, quality) {
     quality = mg_qualitys[quality]
-    const target_url = `https://api.dog886.com/v1/getMiGuSong?id=${songmid}&type=${quality}`
+    const target_url = `https://app.c.nf.migu.cn/MIGUM2.0/strategy/listen-url/v2.2?netType=01&resourceType=E&songId=${songmid}&toneFlag=${quality}`
     return new Promise((resolve, reject) => {
       console.log(songmid, quality)
       request(target_url, {
         method: 'GET',
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0',
+          channel: '0146951',
+          uid: 1234,
         },
       }, (err, resp) => {
         console.log(resp.body)
         if (err) return reject(err)
         let playUrl = resp.body.data?.url
-        if (!playUrl) return reject(new Error('失败惹…'))
+        if (!playUrl) return reject(new Error('failed'))
 
         if (playUrl.startsWith('//')) playUrl = `https:${playUrl}`
 
