@@ -1,6 +1,10 @@
 const getScriptHeader = () => {
   // 获取完整的HTML，并逐行解析为Array
-  let htmlArray = decodeURIComponent(window.location.href).split('\r\n');
+  let html = decodeURIComponent(window.location.href).split('\n');
+  let htmlArray = []
+  html.forEach((i) => {
+    htmlArray.push(i.trim())
+  })
   // 变量不必多说
   let headerArray = [];
   let headerStarted = false;
@@ -16,7 +20,7 @@ const getScriptHeader = () => {
       headerStarted = true;
       continue;
     }
-    if (h.trim() === '*/') {
+    if (h.trim().includes('*/')) {
       headerArray.push(h);
       completed = true;
       continue;
